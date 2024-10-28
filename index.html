@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6dd5ed, #2193b0);
+      color: #333;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2em;
+      color: #2193b0;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    button {
+      font-size: 1em;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 25px;
+      background: #2193b0;
+      color: #fff;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #1b7a99;
+      transform: scale(1.05);
+    }
+    /* Estilos dos emojis caindo */
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      top: -50px; /* Inicia fora da tela, acima */
+      animation: fall 2s linear forwards;
+    }
+    /* Animação para fazer os emojis caírem */
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh); /* Emojis caem até a base da tela */
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz</h1>
+    <p>Você ama seus pais?</p>
+    <div class="buttons">
+      <button onclick="fallingEmojis('happy')">Sim</button>
+      <button onclick="fallingEmojis('broken')">Não</button>
+    </div>
+  </div>
+
+  <script>
+    function fallingEmojis(type) {
+      const emojiType = type === 'happy' ? '❤️' : '💔'; // Emoji feliz ou coração quebrado
+      for (let i = 0; i < 10; i++) { // Cria 10 emojis
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.textContent = emojiType; // Seleciona o emoji com base no tipo
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.animationDuration = Math.random() * 0.5 + 2 + "s"; // Tempo de queda aleatório entre 2-2.5s
+        document.body.appendChild(emoji);
+
+        // Remover emoji após a animação
+        emoji.addEventListener("animationend", () => {
+          emoji.remove();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
